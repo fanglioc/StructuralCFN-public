@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Models & Weights
+*.pth
+*.pt
+models/*
+!models/.gitkeep
+
+# Results & Figures
+# We ignore global images but preserve those required for the paper
+*.png
+*.jpg
+*.jpeg
+!paper/**/*.png
+!paper/**/*.jpg
+!paper/**/*.pdf
+*.txt
+*.log
+results/
+
+# LaTeX
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.pdf
+paper/*.toc
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz
