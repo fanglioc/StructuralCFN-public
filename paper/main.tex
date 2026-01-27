@@ -30,7 +30,7 @@ Despite the ubiquity of tabular data in high-stakes domains, traditional deep le
 \section{Introduction}
 Tabular data remains the dominant format in high-stakes industries, including healthcare, finance, and industrial IoT. Unlike image or textual data, where spatial or sequential structures provide natural inductive biases for neural networks, tabular features are often considered unstructured or ``flat.'' This architectural mismatch has historically favored gradient-boosted decision trees (GBDTs), such as XGBoost \cite{chen2016xgboost}, which excel at capturing non-linear interactions via recursive splitting.
 
-Deep learning on tabular data has recently seen a resurgence through architectures like TabNet \cite{arik2019tabnet} and FT-Transformer \cite{gorishniy2021revisiting}. However, these models often rely on high-capacity attention mechanisms or transformer encoders that require significant computational overhead and offer limited scientific interpretability. We argue that a more effective path toward bridging the ``Tabular Gap'' lies in the \textbf{Structural Prior}: the explicit mathematical assumption that any single feature value is contextually derived from its neighbors within the data manifold.
+Deep learning on tabular data has recently seen a resurgence through architectures like TabNet \cite{arik2021tabnet} and FT-Transformer \cite{gorishniy2021revisiting}. However, these models often rely on high-capacity attention mechanisms or transformer encoders that require significant computational overhead and offer limited scientific interpretability. We argue that a more effective path toward bridging the ``Tabular Gap'' lies in the \textbf{Structural Prior}: the explicit mathematical assumption that any single feature value is contextually derived from its neighbors within the data manifold.
 
 In this work, we introduce \textbf{Structural Compositional Function Networks (StructuralCFN)}, an architecture designed to transition from the paradigm of black-box neural networks to what we term \textbf{Interpretable Functional Compositions}. Unlike traditional architectures that rely on generic high-dimensional weight matrices to approximate mappings, StructuralCFN builds a network of explicit mathematical basis functions. By treating feature contexts as architectural compositions of polynomial, periodic, and threshold functions, we enable the model to learn a differentiable schema of inter-dependencies that is inherently human-readable. StructuralCFN does not merely approximate a function; it learns to approximate the data manifold's relational structure via an assembly of governing functional forms.
 
@@ -54,7 +54,7 @@ Unlike standard neurons, where $\phi$ is a fixed scalar activation (e.g., ReLU),
 \end{itemize}
 This allows the network to learn the \textit{functional form} of the data distribution directly, often requiring fewer parameters to capture complex non-linearities.
 
-Previous research in interpretable machine learning has focused on Generalized Additive Models (GAMs) \cite{hastie1990gam} and modern variants like Explainable Boosting Machines (EBMs) \cite{nori2019ebm} and NODE \cite{popov2019node}. Recent neural architecture search has yielded powerful models such as Neural Additive Models (NAMs) \cite{agarwal2021nam}, GANDALF \cite{jeffares2023gandalf}, and the prior-fitted TabPFN \cite{hollmann2022tabpfn}. While these architectures provide high transparency or strong tabular performance, they often involve complex boosting-based optimization or high-capacity ensembles that can be difficult to integrate into end-to-end differentiable pipelines with low parameter footprints. Similarly, transformer-based architectures like FT-Transformer \cite{gorishniy2021revisiting} and SAINT \cite{somepalli2021saint} have demonstrated state-of-the-art results but require significant computational overhead. Conceptually related to our work is the field of \textbf{Symbolic Regression} and Deep Symbolic Optimization (DSO) \cite{mundhenk2021dso}, which seeks to discover closed-form expressions. StructuralCFN bridges these domains by embedding symbolic basis functions into a differentiable manifold-aware prior. In this work, we extend the CFN paradigm into the structural domain, enabling it to learn inter-feature dependencies as a differentiable prior with extreme parameter efficiency.
+Previous research in interpretable machine learning has focused on Generalized Additive Models (GAMs) \cite{hastie1986gam} and modern variants like Explainable Boosting Machines (EBMs) \cite{nori2019ebm} and NODE \cite{popov2020node}. Recent neural architecture search has yielded powerful models such as Neural Additive Models (NAMs) \cite{agarwal2021nam}, GANDALF \cite{jeffares2023gandalf}, and the prior-fitted TabPFN \cite{hollmann2023tabpfn}. While these architectures provide high transparency or strong tabular performance, they often involve complex boosting-based optimization or high-capacity ensembles that can be difficult to integrate into end-to-end differentiable pipelines with low parameter footprints. Similarly, transformer-based architectures like FT-Transformer \cite{gorishniy2021revisiting} and SAINT \cite{somepalli2021saint} have demonstrated state-of-the-art results but require significant computational overhead. Conceptually related to our work is the field of \textbf{Symbolic Regression} and Deep Symbolic Optimization (DSO) \cite{mundhenk2021dso}, which seeks to discover closed-form expressions. StructuralCFN bridges these domains by embedding symbolic basis functions into a differentiable manifold-aware prior. In this work, we extend the CFN paradigm into the structural domain, enabling it to learn inter-feature dependencies as a differentiable prior with extreme parameter efficiency.
 
 \section{Methodology}
 The StructuralCFN architecture (Figure \ref{fig:arch}) consists of two primary stages: a \textbf{Dependency Layer} that learns a structural prior from inter-feature relationships, and an \textbf{Aggregation Layer} that performs the final prediction.
@@ -125,10 +125,10 @@ We evaluated StructuralCFN across a diverse suite of six benchmark datasets repr
 
 \textbf{Baselines:} In line with recent tabular deep learning literature, we prioritize comparison against the three most prevalent paradigms:
 1. \textbf{Tuned MLP}: A 3-layer network \cite{rumelhart1986mlp} with layers [32, 16] and ReLU activations, representing the standard ``generic'' deep learning approach.
-2. \textbf{TabNet}: An attention-based deep tabular learning architecture \cite{arik2019tabnet}, representing complex state-of-the-art deep learning methods.
+2. \textbf{TabNet}: An attention-based deep tabular learning architecture \cite{arik2021tabnet}, representing complex state-of-the-art deep learning methods.
 3. \textbf{Tuned XGBoost}: A gradient-boosted decision tree baseline \cite{chen2016xgboost}, with hyperparameters ($depth, \eta, \lambda$) optimized via Bayesian Search (Optuna).
 
-\textbf{Benchmark Selection Policy:} We prioritize comparison against architectures optimized for \textbf{extreme parameter efficiency} ($<10$ KB) and \textbf{scientific transparency}---the primary requirements for high-stakes clinical and IoT manifolds. While high-capacity models such as FT-Transformer \cite{gorishniy2021revisiting} and the prior-fitted TabPFN \cite{hollmann2022tabpfn} achieve 2--5\% lower error on massive datasets, they operate in a fundamentally different resource bracket (25 MB vs. 22 KB). For scientific discovery, where model decisions must be validated against physiological literature, a ``glass-box'' model with 400 parameters that recovers governing laws is architecturally more aligned than managing a million-parameter black-box ensemble.
+\textbf{Benchmark Selection Policy:} We prioritize comparison against architectures optimized for \textbf{extreme parameter efficiency} ($<10$ KB) and \textbf{scientific transparency}---the primary requirements for high-stakes clinical and IoT manifolds. While high-capacity models such as FT-Transformer \cite{gorishniy2021revisiting} and the prior-fitted TabPFN \cite{hollmann2023tabpfn} achieve 2--5\% lower error on massive datasets, they operate in a fundamentally different resource bracket (25 MB vs. 22 KB). For scientific discovery, where model decisions must be validated against physiological literature, a ``glass-box'' model with 400 parameters that recovers governing laws is architecturally more aligned than managing a million-parameter black-box ensemble.
 
 \textbf{Architectural Variant Selection:} Unlike traditional tabular methods that require extensive manual tuning of activation functions or gate types, StructuralCFN utilizes the \textbf{Differentiable Adaptive Gating} protocol. The choice between Sigmoid and Tanh behavior is learned end-to-end via gradient descent. Consequently, no manual architectural tuning or nested cross-validation was performed across datasets; all reported results utilize the same standard Adaptive configuration. This ensures that StructuralCFN is evaluated as a single, generalizable architecture rather than a collection of tuned variants.
 
@@ -344,6 +344,24 @@ StructuralCFN demonstrates that deep learning for tabular data can be made both 
 
 Our results suggest that the ``Tabular Gap'' is not a lack of data but a lack of structural inductive bias. As neural networks are increasingly deployed in high-stakes clinical and industrial settings, the ability to learn directed, human-readable inter-feature laws will become a requirement for trust and reliability. StructuralCFN represents a significant step toward this future, providing a unified framework for high-precision, interpretable tabular discovery.
 
+\section*{Acknowledgements}
+
+This work was completed at Oklahoma Christian University, a teaching-focused institution, under significant resource constraints. The research was conducted without external funding, graduate research assistants, or access to high-performance computing infrastructure (GPUs). All experiments were run on modest CPU-based hardware.
+
+Remarkably, despite these limitations, CFN demonstrates competitive or superior performance compared to deep learning models that typically require extensive computational resources. This outcome highlights CFN's practical value for resource-constrained researchers and practitioners.\\
+
+\textbf{The author welcomes:}
+\begin{itemize}
+    \item Research collaboration opportunities
+    \item Computational resource sponsorship (GPU clusters, cloud credits)
+    \item Industry partnerships for scaling CFN to production applications
+    \item Funding support for extending this research program
+\end{itemize}
+
+For inquiries, please contact: fang.li@oc.edu
+
+Code repository: \url{https://github.com/fanglioc/StructuralCFN-public}
+
 \bibliographystyle{plain}
 \bibliography{references}
 
@@ -385,7 +403,7 @@ The StructuralCFN architecture is evaluated in two variants depending on the fea
 
 \subsection{TabNet}
 \begin{itemize}
-    \item \textbf{Implementation}: \texttt{pytorch-tabnet} library \cite{arik2019tabnet}.
+    \item \textbf{Implementation}: \texttt{pytorch-tabnet} library \cite{arik2021tabnet}.
     \item \textbf{Tuning Strategy}: Optuna Bayesian search (30 trials).
     \item \textbf{Optimal Hyperparameters (Diabetes)}: $n\_d=41, n\_a=33, n\_steps=8, \gamma=1.13, \lambda_{sp}=3e^{-4}$.
     \item \textbf{Training}: Adam optimizer, Batch Size 16, Virtual Batch Size 16, 200 epochs (with patience=20).

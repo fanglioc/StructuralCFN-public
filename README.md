@@ -1,6 +1,6 @@
 # StructuralCFN: Interpretable Functional Tabular Discovery
 
-[![PyPI version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/fanglioc/StructuralCFN-public)
+[![PyPI version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/fanglioc/StructuralCFN-public)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
