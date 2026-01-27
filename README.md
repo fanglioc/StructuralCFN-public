@@ -68,7 +68,7 @@ For a full demo, see [examples/quickstart.py](StructuralCFN-public/examples/quic
 ## 📁 Repository Structure
 
 - `scfn/`: Core library containing `MaskedHybridNode` and `HybridDependencyLayer`.
-- `benchmarks/`: Comprehensive suite for reproducing the AAAI-MAKE paper results.
+- `benchmarks/`: Comprehensive suite for reproducing the paper results.
 - `examples/`: Getting-started guides and case studies (e.g., Diabetes lipid metabolic discovery).
 - `paper/`: Source LaTeX and figures for the "Interpretable Functional Compositions" paper.
 
