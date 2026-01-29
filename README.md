@@ -79,5 +79,18 @@ Traditional neural networks treat features as independent dimensions in a flat v
 
 ## 📜 Citation
 
-If you use StructuralCFN in your research, please cite my paper: (coming soon...)
+If you use StructuralCFN in your research, please cite my paper:
+
+```bibtex
+@misc{li2026structuralcompositionalfunctionnetworks,
+      title={Structural Compositional Function Networks: Interpretable Functional Compositions for Tabular Discovery}, 
+      author={Fang Li},
+      year={2026},
+      eprint={2601.20037},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2601.20037}, 
+}
+
+```
 
